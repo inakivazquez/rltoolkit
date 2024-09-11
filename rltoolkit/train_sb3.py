@@ -44,7 +44,7 @@ def main():
 	parser.add_argument('-v', '--visualize', action="store_true", help='visualize the training with render_mode=\'human\'')
 	parser.add_argument('-t', '--tblog', action="store_true", help='generate tensorboard logs in the \"logs\" directory')
 	parser.add_argument('-p', '--policy', type=str, default=None, help='policy to load to continue training, it will also read the replay buffer')
-	parser.add_argument('-i', '--envpackage', type=str, default=None, help='python package with the environment if not included in gymnasium')
+	parser.add_argument('-i', '--envpackage', type=str, default=None, help='python package with the environment if not included in Gymnasium')
 
 	args = parser.parse_args()
 

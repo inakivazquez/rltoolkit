@@ -36,7 +36,7 @@ def main():
 						help='algorithm from SB3 to use in the evaluation, such as PPO, SAC, DQN... using default hyperparameters')
 	parser.add_argument('-p', '--policy', type=str, required=True, help='policy to load for evaluation')
 	parser.add_argument('-n', '--nepisodes', type=int, default=10, help='number of episodes to evaluate')
-	parser.add_argument('-i', '--envpackage', type=str, default=None, help='python package with the environment if not included in gymnasium')
+	parser.add_argument('-i', '--envpackage', type=str, default=None, help='python package with the environment if not included in Gymnasium')
 
 	args = parser.parse_args()
 
