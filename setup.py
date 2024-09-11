@@ -23,6 +23,8 @@ setup(
             'check-cuda=rltoolkit.check_cuda:main',
             'test-gymnasium=rltoolkit.test_gymnasium:main',
             'test-sb3=rltoolkit.test_sb3:main',
+            'train-sb3=rltoolkit.train_sb3:main',
+            'eval-sb3=rltoolkit.eval_sb3:main',
         ],
     },
 )
