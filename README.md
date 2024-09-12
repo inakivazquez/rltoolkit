@@ -1,10 +1,10 @@
 # rltoolkit
 Basic general purpose tools for experimenting with Reinforcement Learning and Gymnasium environments.
 
-In order to install easily prcoeed with:
-    ```
-    pip install git+https://github.com/inakivazquez/rltoolkit.git
-    ```
+In order to install easily:
+```
+pip install git+https://github.com/inakivazquez/rltoolkit.git
+```
 
 To use the RL Toolkit, you can run the following scripts, directly from the command-line or using the source python file:
 
