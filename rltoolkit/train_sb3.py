@@ -45,6 +45,7 @@ def main():
 	parser.add_argument('-t', '--tblog', action="store_true", help='generate tensorboard logs in the \"logs\" directory')
 	parser.add_argument('-p', '--policy', type=str, default=None, help='policy to load to continue training, it will also read the replay buffer')
 	parser.add_argument('-i', '--envpackage', type=str, default=None, help='python package with the environment if not included in Gymnasium')
+	parser.add_argument('-m', '--envparams', type=str, default=None, help='path to json file with environment parameters to be passed during creation')
 
 	args = parser.parse_args()
 
@@ -57,13 +58,14 @@ def main():
 	render_mode = 'human' if args.visualize else None
 	policy_file = args.policy
 	hyperparams = json.load(open(args.hyperparams)) if args.hyperparams else {}
+	envparams = json.load(open(args.envparams)) if args.envparams else {}
 	if args.envpackage:
 		importlib.import_module(args.envpackage)
 
 	set_random_seed(42)
 
 	# Create environment
-	env = gym.make(str_env, render_mode=render_mode)
+	env = gym.make(str_env, render_mode=render_mode, **envparams)
 
 	print(f"Training for {n_steps} steps with {str_algo}...")
 
