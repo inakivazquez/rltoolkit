@@ -19,6 +19,7 @@ __license__ = "GPLv3"
 import gymnasium as gym
 from gymnasium.wrappers.record_video import RecordVideo
 import argparse
+import importlib
 
 def main():
 
@@ -26,12 +27,15 @@ def main():
 	parser.add_argument('-e', '--env', type=str, default="CartPole-v1", help='environment to test (e.g. CartPole-v1)')
 	parser.add_argument('-n', '--nsteps', type=int, default=1_000, help='number of steps to execute')
 	parser.add_argument('-r', '--recvideo', action="store_true", help='record and store video in a \"video\" directory, instead of using the screen')
+	parser.add_argument('-i', '--envpackage', type=str, default=None, help='python package with the environment if not included in Gymnasium')
 
 	args = parser.parse_args()
 
 	str_env = args.env
 	n_steps = args.nsteps
 	recvideo = args.recvideo
+	if args.envpackage:
+		importlib.import_module(args.envpackage)
 
 	if not recvideo:
 		env = gym.make(str_env, render_mode="human")
