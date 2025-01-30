@@ -17,7 +17,7 @@ __email__ = "ivazquez@deusto.es"
 __license__ = "GPLv3"
 
 import gymnasium as gym
-from gymnasium.wrappers.record_video import RecordVideo
+from gymnasium.wrappers import RecordVideo
 import argparse
 import importlib
 
