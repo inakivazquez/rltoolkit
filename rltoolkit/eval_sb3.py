@@ -26,6 +26,7 @@ from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.callbacks import CheckpointCallback
 
 import gymnasium as gym
+from gymnasium.wrappers import RecordVideo
 from stable_baselines3.common.utils import set_random_seed
 import json
 
@@ -39,6 +40,7 @@ def main():
 	parser.add_argument('-n', '--nepisodes', type=int, default=10, help='number of episodes to evaluate')
 	parser.add_argument('-i', '--envpackage', type=str, default=None, help='python package with the environment if not included in Gymnasium')
 	parser.add_argument('-m', '--envparams', type=str, default=None, help='path to json file with environment parameters to be passed during creation')
+	parser.add_argument('-r', '--recvideo', action="store_true", help='record and store video in a \"video\" directory, instead of using the screen')
 
 	args = parser.parse_args()
 
@@ -48,12 +50,19 @@ def main():
 	n_episodes = args.nepisodes
 	policy_file = args.policy
 	envparams = json.load(open(args.envparams)) if args.envparams else {}
+	recvideo = args.recvideo
 	if args.envpackage:
 		importlib.import_module(args.envpackage)
 
 	set_random_seed(42)
 
-	env = gym.make(str_env, render_mode='human', **envparams)
+	if not recvideo:
+		env = gym.make(str_env, render_mode='human', **envparams)
+	else:
+		env = gym.make(str_env, render_mode="rgb_array", **envparams)
+		trigger = lambda n: True
+		env = RecordVideo(env, video_folder="./videos", episode_trigger=trigger, disable_logger=True)
+
 	env = Monitor(env)
 	model = algo.load(policy_file, env)
 
