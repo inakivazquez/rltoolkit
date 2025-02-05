@@ -27,6 +27,7 @@ from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.callbacks import CheckpointCallback
 from stable_baselines3.common.noise import NormalActionNoise
+from stable_baselines3.common.env_util import make_vec_env
 
 import gymnasium as gym
 from stable_baselines3.common.utils import set_random_seed
@@ -46,6 +47,7 @@ def main():
 	parser.add_argument('-p', '--policy', type=str, default=None, help='policy to load to continue training, it will also read the replay buffer')
 	parser.add_argument('-i', '--envpackage', type=str, default=None, help='python package with the environment if not included in Gymnasium')
 	parser.add_argument('-m', '--envparams', type=str, default=None, help='path to json file with environment parameters to be passed during creation')
+	parser.add_argument('--nenvs', type=int, default=1, help='the number of environments to train in parallel (default=1)')
 
 	args = parser.parse_args()
 
@@ -59,13 +61,14 @@ def main():
 	policy_file = args.policy
 	hyperparams = json.load(open(args.hyperparams)) if args.hyperparams else {}
 	envparams = json.load(open(args.envparams)) if args.envparams else {}
+	n_envs = args.nenvs
 	if args.envpackage:
 		importlib.import_module(args.envpackage)
 
 	set_random_seed(42)
 
 	# Create environment
-	env = gym.make(str_env, render_mode=render_mode, **envparams)
+	env = make_vec_env(lambda: gym.make(str_env, render_mode=render_mode, **envparams), n_envs=n_envs)
 
 	print(f"Training for {n_steps} steps with {str_algo}...")
 
