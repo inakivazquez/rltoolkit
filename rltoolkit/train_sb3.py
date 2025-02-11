@@ -44,7 +44,7 @@ def main():
 	parser.add_argument('--name', type=str, default="model", help='name of this experiment (for logs and policies)')
 	parser.add_argument('-v', '--visualize', action="store_true", help='visualize the training with render_mode=\'human\'')
 	parser.add_argument('-t', '--tblog', action="store_true", help='generate tensorboard logs in the \"logs\" directory')
-	parser.add_argument('-p', '--policy', type=str, default=None, help='policy to load to continue training, it will also read the replay buffer')
+	parser.add_argument('-p', '--policy', type=str, default=None, help='policy to load to continue training, it will also read the replay buffer if needed')
 	parser.add_argument('-i', '--envpackage', type=str, default=None, help='python package with the environment if not included in Gymnasium')
 	parser.add_argument('-m', '--envparams', type=str, default=None, help='path to json file with environment parameters to be passed during creation')
 	parser.add_argument('--nenvs', type=int, default=1, help='the number of environments to train in parallel (default=1)')
