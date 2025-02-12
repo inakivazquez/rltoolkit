@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rltoolkit"
+version = "1.0.1"
+description = "A toolkit with convenient utilities for reinforcement learning with Gymnasium and Stable Baselines 3"
+authors = [
+    { name = "Inaki Vazquez", email = "ivazquez@deusto.es" }
+]
+dependencies = [
+    "torch",
+    "gymnasium",
+    "gymnasium[other]",
+    "stable-baselines3",
+    "rich",
+    "tqdm"
+]
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Programming Language :: Python :: 3.8"
+]
+
+[project.scripts]
+check-cuda = "rltoolkit.check_cuda:main"
+test-gymnasium = "rltoolkit.test_gymnasium:main"
+train-sb3 = "rltoolkit.train_sb3:main"
+eval-sb3 = "rltoolkit.eval_sb3:main"
+
+[tool.setuptools]
+packages = ["rltoolkit"]
